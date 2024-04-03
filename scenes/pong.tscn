@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://wf87tea0yn86"]
+
+[ext_resource type="PackedScene" uid="uid://ghsiitfpohdf" path="res://scenes/player_paddle.tscn" id="1_11k3e"]
+[ext_resource type="Script" path="res://scripts/pong.gd" id="1_pkfmy"]
+[ext_resource type="PackedScene" uid="uid://ck3pm0ohe6i40" path="res://scenes/ai_paddle.tscn" id="2_pqk17"]
+[ext_resource type="PackedScene" uid="uid://db8t712dnux7c" path="res://scenes/ball.tscn" id="3_iavs6"]
+[ext_resource type="PackedScene" uid="uid://ctlh0sb2liwlp" path="res://scenes/ui.tscn" id="4_oonss"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0yyov"]
+size = Vector2(1280, 16)
+
+[node name="Pong" type="Node2D"]
+script = ExtResource("1_pkfmy")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 1)
+
+[node name="DivideLine" type="ColorRect" parent="."]
+offset_left = 632.0
+offset_right = 648.0
+offset_bottom = 720.0
+
+[node name="PlayerPaddle" parent="." instance=ExtResource("1_11k3e")]
+z_index = 1
+position = Vector2(72, 352)
+paddle_speed = 500.0
+
+[node name="AIPaddle" parent="." instance=ExtResource("2_pqk17")]
+position = Vector2(1208, 352)
+paddle_speed = 500.0
+
+[node name="SideWall1" type="StaticBody2D" parent="."]
+position = Vector2(8, -8)
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SideWall1"]
+position = Vector2(632, 0)
+shape = SubResource("RectangleShape2D_0yyov")
+
+[node name="SideWall2" type="StaticBody2D" parent="."]
+position = Vector2(8, 728)
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SideWall2"]
+position = Vector2(632, 0)
+shape = SubResource("RectangleShape2D_0yyov")
+
+[node name="Ball" parent="." instance=ExtResource("3_iavs6")]
+position = Vector2(640, 352)
+
+[node name="UI" parent="." instance=ExtResource("4_oonss")]
+
+[connection signal="ai_wins" from="Ball" to="." method="_on_ball_ai_wins"]
+[connection signal="player_wins" from="Ball" to="." method="_on_ball_player_wins"]
