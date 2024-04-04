@@ -53,4 +53,5 @@ position = Vector2(640, 352)
 [node name="UI" parent="." instance=ExtResource("4_oonss")]
 
 [connection signal="ai_wins" from="Ball" to="." method="_on_ball_ai_wins"]
+[connection signal="player_hit_ball" from="Ball" to="AIPaddle" method="_on_ball_player_hit_ball"]
 [connection signal="player_wins" from="Ball" to="." method="_on_ball_player_wins"]

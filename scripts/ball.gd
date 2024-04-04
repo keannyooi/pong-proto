@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+signal player_hit_ball
 signal player_wins
 signal ai_wins
 
@@ -24,6 +25,9 @@ func _physics_process(delta: float) -> void:
 	)
 	if collision:
 		var collider: Object = collision.get_collider()
+		if collider == player_paddle:
+			player_hit_ball.emit()
+			
 		if collider == player_paddle or collider == ai_paddle:
 			current_speed += accel
 			direction = bounce_off_paddle(collider)
