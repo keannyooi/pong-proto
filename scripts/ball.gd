@@ -52,7 +52,7 @@ func bounce_off_paddle(paddle) -> Vector2:
 func random_direction() -> Vector2:
 	var new_direction := Vector2.ZERO
 	new_direction.x = [1, -1].pick_random()
-	new_direction.y = randi_range(-1, 1)
+	new_direction.y = randf_range(-1, 1)
 
 	return new_direction.normalized()
 
